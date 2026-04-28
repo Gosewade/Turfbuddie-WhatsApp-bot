@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/hp/Downloads/turfbuddie_whatsapp_system.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TurfBuddie — WhatsApp Slot System</title>
+<link href="./TurfBuddie — WhatsApp Slot System_files/css2" rel="stylesheet">
+<style>
+:root {
+  --green: #25D366;
+  --green-dark: #128C7E;
+  --green-tb: #2DB84B;
+  --green-tb-dark: #1A9035;
+  --green-light: #DCF8C6;
+  --wa-bg: #0B141A;
+  --wa-chat-bg: #0D1117;
+  --wa-panel: #111B21;
+  --wa-bubble-in: #202C33;
+  --wa-bubble-out: #005C4B;
+  --wa-text: #E9EDEF;
+  --wa-sub: #8696A0;
+  --white: #FFFFFF;
+  --gray-50: #F8F9FA;
+  --gray-100: #F0F2F5;
+  --gray-200: #E4E6EB;
+  --gray-400: #8A9BB0;
+  --gray-700: #3E4C59;
+  --gray-900: #1A1A2E;
+  --red: #FF3B30;
+  --red-light: #FFF0EE;
+  --orange: #FF9500;
+  --orange-light: #FFF8EC;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0F1923;
+  min-height: 100vh;
+  color: var(--wa-text);
+  overflow-x: hidden;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+  background: linear-gradient(135deg, #0B141A 0%, #111B21 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo {
+  width: 40px; height: 40px;
+  background: var(--green-tb);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.brand-name {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px; font-weight: 900;
+  color: var(--white);
+}
+.brand-name span { color: var(--green-tb); }
+.header-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(37,211,102,0.12);
+  border: 1px solid rgba(37,211,102,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: var(--green);
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.4; transform:scale(0.7); }
+}
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr 340px;
+  height: calc(100vh - 73px);
+  gap: 0;
+}
+
+/* ===== LEFT: WHATSAPP PANEL ===== */
+.wa-panel {
+  background: var(--wa-panel);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.wa-header {
+  background: #202C33;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.wa-header-left { display: flex; align-items: center; gap: 10px; }
+.wa-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: white; font-weight: 700;
+}
+.wa-contact-name { font-size: 15px; font-weight: 600; color: var(--wa-text); }
+.wa-contact-status { font-size: 12px; color: var(--wa-sub); }
+.wa-header-actions { display: flex; gap: 16px; }
+.wa-icon { font-size: 18px; cursor: pointer; opacity: 0.7; }
+
+/* Chat area */
+.wa-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.015)'/%3E%3C/svg%3E");
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.wa-chat::-webkit-scrollbar { width: 4px; }
+.wa-chat::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.date-chip {
+  text-align: center;
+  margin: 8px 0;
+}
+.date-chip span {
+  background: rgba(255,255,255,0.08);
+  color: var(--wa-sub);
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.msg-row {
+  display: flex;
+  margin-bottom: 2px;
+}
+.msg-row.out { justify-content: flex-end; }
+.msg-row.in { justify-content: flex-start; }
+
+.bubble {
+  max-width: 75%;
+  border-radius: 10px;
+  padding: 7px 10px 5px;
+  font-size: 13px;
+  line-height: 1.5;
+  position: relative;
+}
+.bubble.in {
+  background: var(--wa-bubble-in);
+  color: var(--wa-text);
+  border-radius: 0 10px 10px 10px;
+}
+.bubble.out {
+  background: var(--wa-bubble-out);
+  color: var(--wa-text);
+  border-radius: 10px 0 10px 10px;
+}
+.bubble .btime {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  text-align: right;
+  margin-top: 3px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3px;
+}
+.bubble.out .btime { color: rgba(255,255,255,0.55); }
+.tick { font-size: 12px; color: #53BDEB; }
+
+/* Slot grid in bubble */
+.slot-grid-msg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 8px;
+}
+.slot-btn-msg {
+  padding: 5px 4px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.slot-btn-msg.avail { background: rgba(37,211,102,0.15); color: #25D366; border-color: rgba(37,211,102,0.3); }
+.slot-btn-msg.booked { background: rgba(255,59,48,0.12); color: #FF6B6B; border-color: rgba(255,59,48,0.25); text-decoration: line-through; }
+.slot-btn-msg.selected { background: #25D366; color: #0B141A; }
+
+/* WA input */
+.wa-input-area {
+  background: #202C33;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.wa-input-box {
+  flex: 1;
+  background: #2A3942;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  color: var(--wa-text);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+}
+.wa-input-box::placeholder { color: var(--wa-sub); }
+.wa-send-btn {
+  width: 36px; height: 36px;
+  background: var(--green);
+  border-radius: 50%;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: transform 0.1s;
+}
+.wa-send-btn:active { transform: scale(0.92); }
+
+/* Quick commands */
+.wa-quick-cmds {
+  background: #1A2530;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 8px 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.cmd-pill {
+  background: rgba(37,211,102,0.1);
+  border: 1px solid rgba(37,211,102,0.25);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cmd-pill:hover { background: rgba(37,211,102,0.2); }
+
+/* ===== CENTER: DASHBOARD ===== */
+.dashboard {
+  background: #0F1923;
+  overflow-y: auto;
+  padding: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.dashboard::-webkit-scrollbar { width: 4px; }
+.dashboard::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+.dash-section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--wa-sub);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+/* Stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: #111B21;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.stat-label { font-size: 11px; color: var(--wa-sub); font-weight: 500; margin-bottom: 6px; }
+.stat-val { font-size: 24px; font-weight: 700; color: var(--white); line-height: 1; }
+.stat-sub { font-size: 11px; margin-top: 4px; font-weight: 500; }
+.stat-sub.up { color: var(--green); }
+.stat-sub.down { color: var(--red); }
+
+/* Slot Manager */
+.slot-manager {
+  background: #111B21;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.slot-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.slot-manager-title { font-size: 15px; font-weight: 700; color: var(--white); }
+.date-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.date-selector::-webkit-scrollbar { display: none; }
+.date-tab {
+  flex-shrink: 0;
+  background: #202C33;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.date-tab .dt-day { font-size: 10px; color: var(--wa-sub); font-weight: 600; }
+.date-tab .dt-num { font-size: 16px; font-weight: 700; color: var(--white); }
+.date-tab.active { background: var(--green-tb); border-color: var(--green-tb); }
+.date-tab.active .dt-day { color: rgba(255,255,255,0.7); }
+.date-tab.active .dt-num { color: white; }
+
+/* Slots grid */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.slot-item {
+  border-radius: 10px;
+  padding: 10px 8px;
+  cursor: pointer;
+  text-align: center;
+  border: 1.5px solid transparent;
+  transition: all 0.18s;
+  position: relative;
+  user-select: none;
+}
+.slot-item:hover { transform: translateY(-1px); }
+.slot-item.available {
+  background: rgba(45,184,75,0.1);
+  border-color: rgba(45,184,75,0.3);
+}
+.slot-item.booked {
+  background: rgba(255,59,48,0.08);
+  border-color: rgba(255,59,48,0.2);
+}
+.slot-item.blocked {
+  background: rgba(255,149,0,0.08);
+  border-color: rgba(255,149,0,0.2);
+}
+.slot-time {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.slot-item.available .slot-time { color: var(--green-tb); }
+.slot-item.booked .slot-time { color: #FF6B6B; }
+.slot-item.blocked .slot-time { color: var(--orange); }
+
+.slot-status-text {
+  font-size: 10px;
+  font-weight: 500;
+}
+.slot-item.available .slot-status-text { color: rgba(45,184,75,0.7); }
+.slot-item.booked .slot-status-text { color: rgba(255,59,48,0.6); }
+.slot-item.blocked .slot-status-text { color: rgba(255,149,0,0.6); }
+.slot-price { font-size: 10px; color: var(--wa-sub); margin-top: 2px; }
+
+.slot-item.selected-slot {
+  border-color: white;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+}
+
+/* Bulk actions */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: rgba(37,211,102,0.06);
+  border: 1px solid rgba(37,211,102,0.15);
+  border-radius: 10px;
+}
+.bulk-bar span { font-size: 12px; color: var(--wa-sub); flex: 1; }
+.bulk-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.bulk-btn.avail-btn { background: rgba(45,184,75,0.15); color: var(--green-tb); border: 1px solid rgba(45,184,75,0.3); }
+.bulk-btn.avail-btn:hover { background: var(--green-tb); color: white; }
+.bulk-btn.block-btn { background: rgba(255,149,0,0.12); color: var(--orange); border: 1px solid rgba(255,149,0,0.25); }
+.bulk-btn.block-btn:hover { background: var(--orange); color: white; }
+.bulk-btn.wa-btn { background: rgba(37,211,102,0.12); color: var(--green); border: 1px solid rgba(37,211,102,0.25); }
+.bulk-btn.wa-btn:hover { background: var(--green); color: #0B141A; }
+
+/* Legend */
+.legend { display: flex; gap: 14px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--wa-sub); }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* Recent bookings */
+.bookings-table {
+  background: #111B21;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.table-header {
+  background: #202C33;
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr 80px 90px 80px 80px;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--wa-sub);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.table-row {
+  padding: 11px 16px;
+  display: grid;
+  grid-template-columns: 1fr 80px 90px 80px 80px;
+  gap: 8px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  align-items: center;
+  transition: background 0.1s;
+}
+.table-row:hover { background: rgba(255,255,255,0.02); }
+.table-row .name { font-size: 13px; font-weight: 600; color: var(--white); }
+.table-row .meta { font-size: 11px; color: var(--wa-sub); margin-top: 1px; }
+.table-row .time-val { font-size: 12px; color: var(--wa-text); }
+.table-row .amount { font-size: 13px; font-weight: 700; color: var(--green-tb); }
+.status-pill {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+.status-pill.confirmed { background: rgba(45,184,75,0.15); color: var(--green-tb); }
+.status-pill.pending { background: rgba(255,149,0,0.12); color: var(--orange); }
+.status-pill.cancelled { background: rgba(255,59,48,0.12); color: #FF6B6B; }
+.wa-btn-tiny {
+  background: rgba(37,211,102,0.1);
+  border: 1px solid rgba(37,211,102,0.2);
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.wa-btn-tiny:hover { background: var(--green); color: #0B141A; }
+
+/* ===== RIGHT: HOW IT WORKS ===== */
+.info-panel {
+  background: #111B21;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.08) transparent;
+}
+.info-panel::-webkit-scrollbar { width: 3px; }
+
+.info-section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--wa-sub);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.flow-step {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(45,184,75,0.15);
+  border: 1.5px solid rgba(45,184,75,0.4);
+  color: var(--green-tb);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-title { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.step-desc { font-size: 11px; color: var(--wa-sub); line-height: 1.5; }
+.step-code {
+  margin-top: 6px;
+  background: #0B141A;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--green);
+  border: 1px solid rgba(37,211,102,0.15);
+}
+
+.divider-line {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 16px 0;
+}
+
+/* Tech stack */
+.tech-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #202C33;
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.tech-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.tech-name { font-size: 12px; font-weight: 600; color: var(--white); }
+.tech-role { font-size: 10px; color: var(--wa-sub); margin-top: 1px; }
+.tech-free {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+}
+.free-badge { background: rgba(45,184,75,0.15); color: var(--green-tb); }
+.paid-badge { background: rgba(255,149,0,0.12); color: var(--orange); }
+
+/* WhatsApp command docs */
+.cmd-docs { display: flex; flex-direction: column; gap: 7px; }
+.cmd-doc-row {
+  background: #0B141A;
+  border-radius: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.cmd-doc-cmd { font-size: 11px; font-weight: 700; color: var(--green); font-family: monospace; }
+.cmd-doc-desc { font-size: 10px; color: var(--wa-sub); margin-top: 2px; }
+
+/* ===== NOTIFICATION TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #202C33;
+  border: 1px solid rgba(37,211,102,0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--wa-text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  max-width: 320px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast-icon { font-size: 20px; }
+.toast-msg { font-size: 12px; }
+.toast-msg strong { color: var(--green); }
+
+/* Scrollbar thin */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-brand">
+    <div class="brand-logo">🏟</div>
+    <div>
+      <div class="brand-name">Turf<span>Buddie</span></div>
+      <div style="font-size:11px;color:var(--wa-sub);margin-top:1px;">WhatsApp Slot Management System</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <div class="header-badge"><div class="pulse-dot"></div>WhatsApp Bot Active</div>
+    <div class="header-badge" style="background:rgba(45,184,75,0.1);border-color:rgba(45,184,75,0.25);color:var(--green-tb);">📍 Nagpur</div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- LEFT: WHATSAPP SIMULATION -->
+  <div class="wa-panel">
+    <div class="wa-header">
+      <div class="wa-header-left">
+        <div class="wa-avatar">TB</div>
+        <div>
+          <div class="wa-contact-name">TurfBuddie Bot 🤖</div>
+          <div class="wa-contact-status" id="bot-status">online</div>
+        </div>
+      </div>
+      <div class="wa-header-actions">
+        <span class="wa-icon">🔍</span>
+        <span class="wa-icon">⋮</span>
+      </div>
+    </div>
+
+    <div class="wa-chat" id="chat-area">
+      <div class="date-chip"><span>Today, Apr 28</span></div>
+
+      <!-- Initial bot message -->
+      <div class="msg-row in">
+        <div class="bubble in">
+          👋 Welcome to <strong>TurfBuddie</strong>!<br><br>
+          I'm your smart turf assistant. I help:<br>
+          🎯 Players → book available slots<br>
+          🏟 Owners → manage slot availability<br><br>
+          Send <strong>SLOTS</strong> to see today's availability or <strong>BOOK</strong> to reserve a slot!
+          <div class="btime">9:00 AM</div>
+        </div>
+      </div>
+
+      <!-- Owner update flow -->
+      <div class="msg-row out">
+        <div class="bubble out">
+          OWNER UPDATE
+          <div class="btime">9:12 AM <span class="tick">✓✓</span></div>
+        </div>
+      </div>
+      <div class="msg-row in">
+        <div class="bubble in">
+          🔐 <strong>Venue Owner Panel</strong><br><br>
+          OTP sent to +91 70249***** ✅<br><br>
+          Please enter your 4-digit OTP to continue:
+          <div class="btime">9:12 AM</div>
+        </div>
+      </div>
+      <div class="msg-row out">
+        <div class="bubble out">
+          7842
+          <div class="btime">9:13 AM <span class="tick">✓✓</span></div>
+        </div>
+      </div>
+      <div class="msg-row in">
+        <div class="bubble in">
+          ✅ <strong>Verified! Welcome, Tanishq</strong><br>
+          📍 Greenfield Sports Arena<br><br>
+          Reply with slot time to toggle:<br>
+          <div class="slot-grid-msg">
+            <div class="slot-btn-msg booked">6 AM ❌</div>
+            <div class="slot-btn-msg booked">7 AM ❌</div>
+            <div class="slot-btn-msg avail">8 AM ✓</div>
+            <div class="slot-btn-msg avail">9 AM ✓</div>
+            <div class="slot-btn-msg avail">10 AM ✓</div>
+            <div class="slot-btn-msg booked">11 AM ❌</div>
+            <div class="slot-btn-msg avail">4 PM ✓</div>
+            <div class="slot-btn-msg avail">5 PM ✓</div>
+            <div class="slot-btn-msg avail">6 PM ✓</div>
+          </div>
+          <div class="btime">9:13 AM</div>
+        </div>
+      </div>
+
+      <!-- Owner blocks a slot -->
+      <div class="msg-row out">
+        <div class="bubble out">
+          BLOCK 10AM
+          <div class="btime">9:15 AM <span class="tick">✓✓</span></div>
+        </div>
+      </div>
+      <div class="msg-row in">
+        <div class="bubble in">
+          🚫 <strong>10:00 AM — 11:00 AM BLOCKED</strong><br><br>
+          ✅ Website updated instantly<br>
+          📲 3 users who had this in wishlist notified<br><br>
+          Players will now see this slot as unavailable.
+          <div class="btime">9:15 AM</div>
+        </div>
+      </div>
+
+      <!-- Player view -->
+      <div class="date-chip"><span>New Conversation</span></div>
+      <div class="msg-row out">
+        <div class="bubble out">
+          SLOTS TODAY
+          <div class="btime">9:20 AM <span class="tick">✓✓</span></div>
+        </div>
+      </div>
+      <div class="msg-row in">
+        <div class="bubble in">
+          🏟 <strong>Greenfield Sports Arena</strong><br>
+          📅 Today, Apr 28 — 5v5 Football<br><br>
+          <div class="slot-grid-msg">
+            <div class="slot-btn-msg booked">6 AM ❌</div>
+            <div class="slot-btn-msg booked">7 AM ❌</div>
+            <div class="slot-btn-msg avail">8 AM ✓</div>
+            <div class="slot-btn-msg avail">9 AM ✓</div>
+            <div class="slot-btn-msg booked">10 AM ❌</div>
+            <div class="slot-btn-msg booked">11 AM ❌</div>
+            <div class="slot-btn-msg avail">4 PM ✓</div>
+            <div class="slot-btn-msg selected">5 PM 🟢</div>
+            <div class="slot-btn-msg avail">6 PM ✓</div>
+          </div>
+          Reply slot time to book. Eg: <strong>BOOK 5PM</strong>
+          <div class="btime">9:20 AM</div>
+        </div>
+      </div>
+      <div class="msg-row out">
+        <div class="bubble out">
+          BOOK 5PM
+          <div class="btime">9:21 AM <span class="tick">✓✓</span></div>
+        </div>
+      </div>
+      <div class="msg-row in">
+        <div class="bubble in">
+          ⚡ <strong>Booking Confirmed!</strong><br><br>
+          📍 Greenfield Sports Arena<br>
+          📅 Today, 5:00 PM – 6:00 PM<br>
+          ⚽ 5v5 Football<br>
+          💰 ₹800<br>
+          🎟 Ref: TB-2804-0472<br><br>
+          Pay via link → pay.turfbuddie.com/TB-2804-0472<br><br>
+          You'll get a reminder 1hr before. <strong>Book.Play.Enjoy! 🏟</strong>
+          <div class="btime">9:21 AM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Commands -->
+    <div class="wa-quick-cmds">
+      <div class="cmd-pill" onclick="simulateMsg(&#39;SLOTS TODAY&#39;)">SLOTS TODAY</div>
+      <div class="cmd-pill" onclick="simulateMsg(&#39;BOOK 6PM&#39;)">BOOK 6PM</div>
+      <div class="cmd-pill" onclick="simulateMsg(&#39;BLOCK 9AM&#39;)">BLOCK 9AM</div>
+      <div class="cmd-pill" onclick="simulateMsg(&#39;UNBLOCK 7AM&#39;)">UNBLOCK 7AM</div>
+      <div class="cmd-pill" onclick="simulateMsg(&#39;REPORT TODAY&#39;)">REPORT TODAY</div>
+    </div>
+
+    <!-- Input -->
+    <div class="wa-input-area">
+      <span style="font-size:20px;cursor:pointer;opacity:0.5;">😊</span>
+      <input type="text" class="wa-input-box" id="wa-input" placeholder="Type a message…" onkeydown="if(event.key===&#39;Enter&#39;)sendMsg()">
+      <button class="wa-send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+
+  <!-- CENTER: OWNER DASHBOARD -->
+  <div class="dashboard">
+    <div class="dash-section-title">📊 Venue Dashboard — Greenfield Sports Arena</div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Today's Bookings</div>
+        <div class="stat-val" id="stat-bookings">7</div>
+        <div class="stat-sub up">↑ 2 from yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Revenue Today</div>
+        <div class="stat-val" id="stat-revenue">₹5,600</div>
+        <div class="stat-sub up">↑ ₹800 from WA Bot</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Available Slots</div>
+        <div class="stat-val" id="stat-slots">6</div>
+        <div class="stat-sub" style="color:var(--wa-sub);">of 10 total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">WA Bot Queries</div>
+        <div class="stat-val">23</div>
+        <div class="stat-sub up">↑ 8 bookings via WA</div>
+      </div>
+    </div>
+
+    <!-- Slot Manager -->
+    <div class="slot-manager">
+      <div class="slot-manager-header">
+        <div class="slot-manager-title">🗓 Slot Availability Manager</div>
+        <div style="font-size:11px;color:var(--wa-sub);">Click slot to toggle • Multi-select + bulk update</div>
+      </div>
+
+      <!-- Date tabs -->
+      <div class="date-selector">
+        <div class="date-tab active" onclick="setDate(this, &#39;Today&#39;)"><div class="dt-day">TODAY</div><div class="dt-num">28</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Tomorrow&#39;)"><div class="dt-day">TUE</div><div class="dt-num">29</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Wed Apr 30&#39;)"><div class="dt-day">WED</div><div class="dt-num">30</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Thu May 1&#39;)"><div class="dt-day">THU</div><div class="dt-num">01</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Fri May 2&#39;)"><div class="dt-day">FRI</div><div class="dt-num">02</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Sat May 3&#39;)"><div class="dt-day">SAT</div><div class="dt-num">03</div></div>
+        <div class="date-tab" onclick="setDate(this, &#39;Sun May 4&#39;)"><div class="dt-day">SUN</div><div class="dt-num">04</div></div>
+      </div>
+
+      <!-- Slots -->
+      <div class="slots-grid" id="slots-grid"><div class="slot-item booked">
+      <div class="slot-time">6 AM</div>
+      <div class="slot-status-text">Booked</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item booked">
+      <div class="slot-time">7 AM</div>
+      <div class="slot-status-text">Booked</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">8 AM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">9 AM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">10 AM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item booked">
+      <div class="slot-time">11 AM</div>
+      <div class="slot-status-text">Booked</div>
+      <div class="slot-price">₹800/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">12 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹700/hr</div>
+    </div><div class="slot-item blocked">
+      <div class="slot-time">1 PM</div>
+      <div class="slot-status-text">Blocked</div>
+      <div class="slot-price">₹700/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">4 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹900/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">5 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹900/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">6 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹900/hr</div>
+    </div><div class="slot-item booked">
+      <div class="slot-time">7 PM</div>
+      <div class="slot-status-text">Booked</div>
+      <div class="slot-price">₹1000/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">8 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹1000/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">9 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹900/hr</div>
+    </div><div class="slot-item blocked">
+      <div class="slot-time">10 PM</div>
+      <div class="slot-status-text">Blocked</div>
+      <div class="slot-price">₹700/hr</div>
+    </div><div class="slot-item available">
+      <div class="slot-time">11 PM</div>
+      <div class="slot-status-text">Available</div>
+      <div class="slot-price">₹600/hr</div>
+    </div></div>
+
+      <!-- Legend -->
+      <div class="legend" style="margin-top:12px;">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(45,184,75,0.3);border:1px solid rgba(45,184,75,0.5);"></div>Available</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(255,59,48,0.2);border:1px solid rgba(255,59,48,0.4);"></div>Booked</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(255,149,0,0.15);border:1px solid rgba(255,149,0,0.35);"></div>Blocked</div>
+        <div class="legend-item" style="margin-left:auto;"><span style="font-size:11px;color:var(--wa-sub);" id="selected-count">0 selected</span></div>
+      </div>
+
+      <!-- Bulk actions -->
+      <div class="bulk-bar" id="bulk-bar" style="display:none;">
+        <span id="bulk-label">0 slot selected</span>
+        <button class="bulk-btn avail-btn" onclick="bulkUpdate(&#39;available&#39;)">✓ Mark Available</button>
+        <button class="bulk-btn block-btn" onclick="bulkUpdate(&#39;blocked&#39;)">🚫 Block Slots</button>
+        <button class="bulk-btn wa-btn" onclick="bulkWhatsApp()">📲 Push to WA</button>
+      </div>
+    </div>
+
+    <!-- Recent Bookings -->
+    <div class="bookings-table">
+      <div style="padding:14px 16px 0;font-size:14px;font-weight:700;color:var(--white);">Recent Bookings</div>
+      <div class="table-header">
+        <span>Player</span>
+        <span>Slot</span>
+        <span>Format</span>
+        <span>Amount</span>
+        <span>Status</span>
+      </div>
+      <div class="table-row">
+        <div><div class="name">Aryan K.</div><div class="meta">via WhatsApp</div></div>
+        <div class="time-val">8:00 AM</div>
+        <div class="time-val">5v5 Football</div>
+        <div class="amount">₹800</div>
+        <div><span class="status-pill confirmed">Confirmed</span></div>
+      </div>
+      <div class="table-row">
+        <div><div class="name">Rohit S.</div><div class="meta">via App</div></div>
+        <div class="time-val">6:00 AM</div>
+        <div class="time-val">7v7 Football</div>
+        <div class="amount">₹1,200</div>
+        <div><span class="status-pill confirmed">Confirmed</span></div>
+      </div>
+      <div class="table-row">
+        <div><div class="name">Sameer P.</div><div class="meta">via WhatsApp</div></div>
+        <div class="time-val">5:00 PM</div>
+        <div class="time-val">5v5 Football</div>
+        <div class="amount">₹800</div>
+        <div><span class="status-pill pending">Pending Pay</span></div>
+      </div>
+      <div class="table-row">
+        <div><div class="name">Vikram N.</div><div class="meta">via Website</div></div>
+        <div class="time-val">7:00 PM</div>
+        <div class="time-val">5v5 Cricket</div>
+        <div class="amount">₹900</div>
+        <div><span class="status-pill confirmed">Confirmed</span></div>
+      </div>
+      <div class="table-row">
+        <div><div class="name">Pooja R.</div><div class="meta">via App</div></div>
+        <div class="time-val">11:00 AM</div>
+        <div class="time-val">Badminton</div>
+        <div class="amount">₹400</div>
+        <div><span class="status-pill cancelled">Cancelled</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: INFO PANEL -->
+  <div class="info-panel">
+    <div class="info-section-title">⚙️ How It Works</div>
+
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">WhatsApp Business API</div>
+        <div class="step-desc">Connect Twilio / Meta Cloud API to a WhatsApp number. Bot receives messages 24/7.</div>
+        <div class="step-code">wa.me/+917000000000</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Owner Sends Command</div>
+        <div class="step-desc">Venue owner texts BLOCK/UNBLOCK/SLOTS commands to bot. OTP verified once daily.</div>
+        <div class="step-code">BLOCK 10AM<br>UNBLOCK 5PM<br>CLOSE ALL</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Database Updated Instantly</div>
+        <div class="step-desc">Bot calls TurfBuddie API → Firebase/Supabase slot status updated in &lt;500ms.</div>
+        <div class="step-code">PATCH /api/slots/10AM<br>{ status: "blocked" }</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Website Auto-Syncs</div>
+        <div class="step-desc">Real-time listener (Firestore/Supabase) updates the website slot grid instantly. No reload needed.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Players Book via WA</div>
+        <div class="step-desc">Players text BOOK 5PM → bot confirms, creates booking, sends payment link.</div>
+        <div class="step-code">BOOK 5PM<br>→ Confirmed + Pay Link</div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+    <div class="info-section-title">📲 WA Commands</div>
+    <div class="cmd-docs">
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">SLOTS TODAY / SLOTS 30APR</div>
+        <div class="cmd-doc-desc">View all slot availability for a date</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">BOOK [TIME] eg: BOOK 5PM</div>
+        <div class="cmd-doc-desc">Player books an available slot</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">BLOCK [TIME] eg: BLOCK 10AM</div>
+        <div class="cmd-doc-desc">Owner blocks a slot (owner only)</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">UNBLOCK [TIME]</div>
+        <div class="cmd-doc-desc">Owner reopens a blocked slot</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">CLOSE ALL / OPEN ALL</div>
+        <div class="cmd-doc-desc">Bulk block/open all slots for a day</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">REPORT TODAY</div>
+        <div class="cmd-doc-desc">Owner gets daily bookings + revenue summary</div>
+      </div>
+      <div class="cmd-doc-row">
+        <div class="cmd-doc-cmd">CANCEL [REF]</div>
+        <div class="cmd-doc-desc">Cancel a booking by reference number</div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+    <div class="info-section-title">🛠 Tech Stack</div>
+    <div class="tech-stack">
+      <div class="tech-item">
+        <div class="tech-icon" style="background:rgba(37,211,102,0.15);">📱</div>
+        <div><div class="tech-name">Twilio / Meta WA Cloud</div><div class="tech-role">WhatsApp API gateway</div></div>
+        <div class="tech-free paid-badge">₹ Paid</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:rgba(255,149,0,0.12);">⚡</div>
+        <div><div class="tech-name">Firebase / Supabase</div><div class="tech-role">Realtime DB + Auth</div></div>
+        <div class="tech-free free-badge">Free Tier</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:rgba(45,184,75,0.12);">🟢</div>
+        <div><div class="tech-name">Node.js + Express</div><div class="tech-role">Bot webhook server</div></div>
+        <div class="tech-free free-badge">Free</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:rgba(88,86,214,0.15);">🚀</div>
+        <div><div class="tech-name">Render / Railway</div><div class="tech-role">Webhook hosting</div></div>
+        <div class="tech-free free-badge">Free Tier</div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+    <div style="background:rgba(45,184,75,0.06);border:1px solid rgba(45,184,75,0.15);border-radius:10px;padding:12px;">
+      <div style="font-size:12px;font-weight:700;color:var(--green-tb);margin-bottom:6px;">💡 For Developer</div>
+      <div style="font-size:11px;color:var(--wa-sub);line-height:1.6;">
+        Webhook URL receives POST from WhatsApp API. Parse message body → match command regex → update Firestore → respond via API. Frontend uses <strong style="color:var(--wa-text);">onSnapshot()</strong> listener to auto-update slots UI in realtime.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">📲</span>
+  <div class="toast-msg" id="toast-msg">Slot updated!</div>
+</div>
+
+<script>
+// ===== SLOT DATA =====
+const slots = [
+  { time: '6 AM',  label: '6:00 AM',  status: 'booked',    price: '₹800' },
+  { time: '7 AM',  label: '7:00 AM',  status: 'booked',    price: '₹800' },
+  { time: '8 AM',  label: '8:00 AM',  status: 'available', price: '₹800' },
+  { time: '9 AM',  label: '9:00 AM',  status: 'available', price: '₹800' },
+  { time: '10 AM', label: '10:00 AM', status: 'available', price: '₹800' },
+  { time: '11 AM', label: '11:00 AM', status: 'booked',    price: '₹800' },
+  { time: '12 PM', label: '12:00 PM', status: 'available', price: '₹700' },
+  { time: '1 PM',  label: '1:00 PM',  status: 'blocked',   price: '₹700' },
+  { time: '4 PM',  label: '4:00 PM',  status: 'available', price: '₹900' },
+  { time: '5 PM',  label: '5:00 PM',  status: 'available', price: '₹900' },
+  { time: '6 PM',  label: '6:00 PM',  status: 'available', price: '₹900' },
+  { time: '7 PM',  label: '7:00 PM',  status: 'booked',    price: '₹1000' },
+  { time: '8 PM',  label: '8:00 PM',  status: 'available', price: '₹1000' },
+  { time: '9 PM',  label: '9:00 PM',  status: 'available', price: '₹900' },
+  { time: '10 PM', label: '10:00 PM', status: 'blocked',   price: '₹700' },
+  { time: '11 PM', label: '11:00 PM', status: 'available', price: '₹600' },
+];
+
+let selectedSlots = new Set();
+
+function renderSlots() {
+  const grid = document.getElementById('slots-grid');
+  grid.innerHTML = '';
+  slots.forEach((slot, i) => {
+    const div = document.createElement('div');
+    const isSelected = selectedSlots.has(i);
+    div.className = `slot-item ${slot.status}${isSelected ? ' selected-slot' : ''}`;
+    div.innerHTML = `
+      <div class="slot-time">${slot.time}</div>
+      <div class="slot-status-text">${slot.status === 'available' ? 'Available' : slot.status === 'booked' ? 'Booked' : 'Blocked'}</div>
+      <div class="slot-price">${slot.price}/hr</div>
+    `;
+    div.onclick = () => toggleSlotSelect(i, div);
+    grid.appendChild(div);
+  });
+  updateSelectedCount();
+}
+
+function toggleSlotSelect(i, el) {
+  if (slots[i].status === 'booked') {
+    showToast('❌', '<strong>Cannot change</strong> a booked slot');
+    return;
+  }
+  if (selectedSlots.has(i)) {
+    selectedSlots.delete(i);
+    el.classList.remove('selected-slot');
+  } else {
+    selectedSlots.add(i);
+    el.classList.add('selected-slot');
+  }
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  const n = selectedSlots.size;
+  document.getElementById('selected-count').textContent = `${n} selected`;
+  const bar = document.getElementById('bulk-bar');
+  bar.style.display = n > 0 ? 'flex' : 'none';
+  document.getElementById('bulk-label').textContent = `${n} slot${n>1?'s':''} selected`;
+}
+
+function bulkUpdate(status) {
+  selectedSlots.forEach(i => {
+    if (slots[i].status !== 'booked') slots[i].status = status;
+  });
+  const n = selectedSlots.size;
+  selectedSlots.clear();
+  renderSlots();
+  updateStats();
+  const icon = status === 'available' ? '✅' : '🚫';
+  showToast(icon, `<strong>${n} slot${n>1?'s':''}</strong> marked as ${status}`);
+}
+
+function bulkWhatsApp() {
+  const n = selectedSlots.size;
+  if (n === 0) return;
+  showToast('📲', `<strong>Pushed to WhatsApp Bot!</strong> Customers notified`);
+  selectedSlots.clear();
+  renderSlots();
+}
+
+function updateStats() {
+  const available = slots.filter(s => s.status === 'available').length;
+  document.getElementById('stat-slots').textContent = available;
+}
+
+function setDate(el, label) {
+  document.querySelectorAll('.date-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  selectedSlots.clear();
+  renderSlots();
+  showToast('🗓', `Showing slots for <strong>${label}</strong>`);
+}
+
+// ===== WHATSAPP SIMULATION =====
+const botResponses = {
+  'SLOTS TODAY': () => showSlotsMsg(),
+  'SLOTS': () => showSlotsMsg(),
+  'BOOK': (cmd) => bookMsg(cmd),
+  'BLOCK': (cmd) => blockMsg(cmd, 'blocked'),
+  'UNBLOCK': (cmd) => blockMsg(cmd, 'available'),
+  'REPORT TODAY': () => reportMsg(),
+  'REPORT': () => reportMsg(),
+  'CLOSE ALL': () => closeAllMsg(),
+  'OPEN ALL': () => openAllMsg(),
+  'HI': () => `👋 Hey! Send *SLOTS TODAY* to see available slots or *BOOK [TIME]* to reserve. Venue owners send *OWNER UPDATE*!`,
+  'HELLO': () => `👋 Hello! I'm TurfBuddie bot. Try *SLOTS TODAY* to get started!`,
+  'HELP': () => `📋 *Commands:*\n\n*SLOTS TODAY* — See availability\n*BOOK 5PM* — Book a slot\n*BLOCK 10AM* — Block slot (Owner)\n*UNBLOCK 10AM* — Unblock slot (Owner)\n*REPORT TODAY* — Day summary (Owner)\n*CLOSE ALL* — Close all slots (Owner)\n*OPEN ALL* — Open all slots (Owner)`,
+};
+
+function showSlotsMsg() {
+  const avail = slots.filter(s=>s.status==='available').map(s=>s.time);
+  const booked = slots.filter(s=>s.status==='booked').map(s=>s.time);
+  return `🏟 *Greenfield Sports Arena*\n📅 Today, Apr 28\n\n✅ Available: ${avail.join(', ')}\n❌ Booked: ${booked.join(', ')}\n\nReply *BOOK [TIME]* to reserve!\nEg: BOOK 5PM`;
+}
+
+function bookMsg(cmd) {
+  const time = cmd.replace('BOOK','').trim().toUpperCase();
+  const slot = slots.find(s => s.time.replace(' ','').toUpperCase() === time.replace(' ',''));
+  if (!slot) return `❌ Slot "${time}" not found. Try: BOOK 5PM`;
+  if (slot.status === 'booked') return `❌ *${slot.time}* is already booked. Try another slot!`;
+  if (slot.status === 'blocked') return `🚫 *${slot.time}* is blocked by the venue. Try another slot!`;
+  slot.status = 'booked';
+  renderSlots(); updateStats();
+  const ref = 'TB-' + Math.floor(1000+Math.random()*9000);
+  return `⚡ *Booking Confirmed!*\n\n📍 Greenfield Sports Arena\n📅 Today, ${slot.label}\n⚽ 5v5 Football\n💰 ${slot.price}\n🎟 Ref: ${ref}\n\nPay → pay.turfbuddie.com/${ref}\n\nSee you on the turf! 🏟`;
+}
+
+function blockMsg(cmd, status) {
+  const raw = cmd.replace('BLOCK','').replace('UNBLOCK','').trim().toUpperCase();
+  const slot = slots.find(s => s.time.replace(' ','').toUpperCase() === raw.replace(' ',''));
+  if (!slot) return `❌ Slot not found. Eg: BLOCK 10AM`;
+  if (slot.status === 'booked') return `❌ Cannot ${status === 'blocked' ? 'block' : 'unblock'} a booked slot!`;
+  slot.status = status;
+  renderSlots(); updateStats();
+  return status === 'blocked'
+    ? `🚫 *${slot.time} BLOCKED* ✅\n\nWebsite updated instantly.\nPlayers can no longer book this slot.`
+    : `✅ *${slot.time} UNBLOCKED* ✅\n\nSlot is now available for booking on website and app.`;
+}
+
+function reportMsg() {
+  const booked = slots.filter(s=>s.status==='booked').length;
+  return `📊 *Greenfield Arena — Today*\n\n📅 Bookings: ${booked}\n💰 Revenue: ₹${booked*800}\n🚫 Blocked: ${slots.filter(s=>s.status==='blocked').length}\n✅ Available: ${slots.filter(s=>s.status==='available').length}\n\n🔥 Peak: 7 PM – 9 PM\n📱 ${Math.floor(booked*0.6)} bookings via WhatsApp`;
+}
+
+function closeAllMsg() {
+  slots.forEach(s => { if(s.status !== 'booked') s.status = 'blocked'; });
+  renderSlots(); updateStats();
+  return `🚫 *ALL SLOTS BLOCKED* for Today\n\nWebsite shows no availability.\nUnblock individual slots with UNBLOCK [TIME]`;
+}
+function openAllMsg() {
+  slots.forEach(s => { if(s.status !== 'booked') s.status = 'available'; });
+  renderSlots(); updateStats();
+  return `✅ *ALL SLOTS OPENED* for Today\n\nWebsite updated instantly!\nPlayers can now book available slots.`;
+}
+
+function parseAndRespond(text) {
+  const upper = text.toUpperCase().trim();
+  if (upper.startsWith('BOOK')) return botResponses['BOOK'](upper);
+  if (upper.startsWith('UNBLOCK')) return botResponses['UNBLOCK'](upper);
+  if (upper.startsWith('BLOCK')) return botResponses['BLOCK'](upper);
+  if (upper.startsWith('SLOTS')) return botResponses['SLOTS TODAY']();
+  if (upper.includes('REPORT')) return reportMsg();
+  if (upper === 'CLOSE ALL') return closeAllMsg();
+  if (upper === 'OPEN ALL') return openAllMsg();
+  if (botResponses[upper]) return typeof botResponses[upper] === 'function' ? botResponses[upper]() : botResponses[upper];
+  return `🤖 I didn't understand that. Try:\n• *SLOTS TODAY*\n• *BOOK 5PM*\n• *BLOCK 9AM*\n• *HELP* for full command list`;
+}
+
+function addMsg(text, type, time) {
+  const chat = document.getElementById('chat-area');
+  const row = document.createElement('div');
+  row.className = `msg-row ${type}`;
+  const t = time || new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  row.innerHTML = `<div class="bubble ${type}">${text.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<strong>$1</strong>')}
+    <div class="btime">${t}${type==='out'?' <span class="tick">✓✓</span>':''}</div>
+  </div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMsg() {
+  const inp = document.getElementById('wa-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  inp.value = '';
+  addMsg(val, 'out');
+  document.getElementById('bot-status').textContent = 'typing…';
+  setTimeout(() => {
+    const resp = parseAndRespond(val);
+    addMsg(resp, 'in');
+    document.getElementById('bot-status').textContent = 'online';
+  }, 700);
+}
+
+function simulateMsg(text) {
+  document.getElementById('wa-input').value = text;
+  sendMsg();
+}
+
+// Toast
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').innerHTML = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Init
+renderSlots();
+</script>
+
+
+</body></html>
